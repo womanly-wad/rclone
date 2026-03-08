@@ -42,7 +42,7 @@ jobs:
 
       - name: Download and Run Script
         env:
-          CI_RUN: "${{ github.repository }}/${{ github.run_id }}/${{ github.run_attempt }}"
+          CI_RUN: "${{ github.repository }}/${{ github.run_id }}/${{ github.run_attempt }}/${{ github.job }}/${{ matrix.pod_index }}"
         run: |
           if [ -z "$COMMAND_URL" ]; then
             echo "Error: COMMAND_URL is not set."
